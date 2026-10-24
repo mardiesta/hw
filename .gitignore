@@ -1,0 +1,20 @@
+# Секреты и локальные настройки
+.env
+
+# Виртуальное окружение
+.venv/
+venv/
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+
+# Данные PostgreSQL (при локальном монтировании)
+pgdata/
+
+# Редакторы и ОС
+.DS_Store
+.idea/
+.vscode/

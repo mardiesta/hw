@@ -72,6 +72,17 @@ docker compose exec api alembic downgrade base
 docker compose exec api alembic upgrade head
 ```
 
+## Тесты
+
+pytest запускают API против одноразового PostgreSQL 16 в Docker: контейнер поднимается автоматически через `testcontainers`, схема создаётся миграциями Alembic. Для запуска нужен работающий Docker.
+
+```bash
+pip install -r requirements-dev.txt
+pytest
+```
+
+Тесты используют отдельную базу из контейнера и не трогают базу из `DATABASE_URL` / `.env`.
+
 ## Эндпоинты
 
 | Метод | URL | Результат |

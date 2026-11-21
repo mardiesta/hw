@@ -1,3 +1,5 @@
+import logging
+
 from fastapi import APIRouter, Response
 from sqlalchemy import select
 
@@ -5,6 +7,8 @@ from app.crud import apply_changes, delete_and_commit, get_or_404, save_and_refr
 from app.database import DbSession
 from app.models import Project
 from app.schemas import ProjectCreate, ProjectRead, ProjectUpdate
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/v1/projects", tags=["projects"])
 
@@ -24,6 +28,7 @@ def create_project(payload: ProjectCreate, db: DbSession):
     obj = Project(**payload.model_dump())
     db.add(obj)
     save_and_refresh(db, obj)
+    logger.info("Создание: проект, id=%s", obj.id)
     return obj
 
 
@@ -32,6 +37,7 @@ def update_project(item_id: int, payload: ProjectUpdate, db: DbSession):
     obj = get_or_404(db, Project, item_id, "Проект")
     apply_changes(obj, payload)
     save_and_refresh(db, obj)
+    logger.info("Обновление: проект, id=%s", item_id)
     return obj
 
 
@@ -40,4 +46,5 @@ def delete_project(item_id: int, db: DbSession):
     obj = get_or_404(db, Project, item_id, "Проект")
     # Задачи и их комментарии удаляются каскадно на уровне БД (ON DELETE CASCADE).
     delete_and_commit(db, obj)
+    logger.info("Удаление: проект, id=%s", item_id)
     return Response(status_code=204)

@@ -27,6 +27,7 @@ class _ReadModel(BaseModel):
 
 # ---------- users ----------
 
+
 class UserCreate(_InputModel):
     email: Email
     display_name: Name255
@@ -49,6 +50,7 @@ class UserRead(_ReadModel):
 
 # ---------- projects ----------
 
+
 class ProjectCreate(_InputModel):
     name: Title200
     description: str | None = None
@@ -68,6 +70,7 @@ class ProjectRead(_ReadModel):
 
 # ---------- labels ----------
 
+
 class LabelCreate(_InputModel):
     name: Name64
     color: ColorHex = "#6b7280"
@@ -85,6 +88,7 @@ class LabelRead(_ReadModel):
 
 
 # ---------- tasks ----------
+
 
 class TaskCreate(_InputModel):
     project_id: int
@@ -120,6 +124,7 @@ class TaskRead(_ReadModel):
 
 
 # ---------- comments ----------
+
 
 class CommentCreate(_InputModel):
     task_id: int
